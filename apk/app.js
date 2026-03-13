@@ -202,7 +202,12 @@ function goScene(n) {
 }
 
 function onEnter(n) {
-  if (n === 1 && !musicPlaying) toggleMusic();
+  if (n === 1) {
+    if (!musicPlaying) toggleMusic();
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+      requestFullscreen();
+    }
+  }
   if (n === 4) revealEvidenceBoard();
   if (n === 6) startGame();
 }
@@ -1140,9 +1145,70 @@ function toggleMusic() {
       }).catch(err => {
         showToast('Click anywhere first to play music!');
       });
+}
+  }
+}
+
+/* ═══════════ FULLSCREEN TOGGLE ═══════════════════ */
+function checkFullscreen() {
+  const btn = document.getElementById('music-toggle');
+  if (!btn) return;
+  
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    btn.innerHTML = '⛶'; // Fullscreen icon
+    btn.classList.remove('playing');
+  } else {
+    // We are in fullscreen, revert to music icon
+    if (musicPlaying) {
+      btn.innerHTML = '🔊';
+      btn.classList.add('playing');
+    } else {
+      btn.innerHTML = '🎵';
+      btn.classList.remove('playing');
     }
   }
 }
+
+function requestFullscreen() {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(err => console.log(err));
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen().catch(err => console.log(err));
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen().catch(err => console.log(err));
+  }
+}
+
+function toggleFullscreenOrMusic() {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    requestFullscreen();
+  } else {
+    toggleMusic();
+  }
+}
+
+// Hook into the first actual scene click
+document.addEventListener('click', (e) => {
+  if (currentScene === 0 && (!document.fullscreenElement && !document.webkitFullscreenElement)) {
+    requestFullscreen();
+  }
+}, { once: true });
+
+// Listen for orientation changes to enforce fullscreen on landscape
+window.addEventListener("orientationchange", function() {
+  if (window.orientation === 90 || window.orientation === -90) {
+    requestFullscreen();
+  }
+}, false);
+
+// Keep our button icon in sync with fullscreen state
+document.addEventListener('fullscreenchange', checkFullscreen);
+document.addEventListener('webkitfullscreenchange', checkFullscreen);
+document.addEventListener('msfullscreenchange', checkFullscreen);
+
+// Initial check
+checkFullscreen();
 window.toggleMusic = toggleMusic;
 window.playNextTrack = playNextTrack;
 
