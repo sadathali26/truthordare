@@ -11,7 +11,7 @@ const CARDS = [
   {
     q: "Tell us about all the crushes you have had so far in your life.",
     truth: { prompt: "Who were they and what made you like them?", inputType: "text" },
-    dare: { text: "Text your last contact: 'I think I accidentally told someone about my crush on you 😭'", inputType: "image", hint: "send → screenshot → submit" }
+    dare: { text: "Sing 15 seconds of a romantic song like you are confessing to your crush.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "Do you currently have someone special or a relationship?",
@@ -21,92 +21,92 @@ const CARDS = [
   {
     q: "What is the most awkward moment you have ever experienced in your life?",
     truth: { prompt: "Explain the full story and what you did after that.", inputType: "text" },
-    dare: { text: "Post the weirdest selfie you can take right now on your status for 10 minutes.", inputType: "image", hint: "post → screenshot → submit" }
+    dare: { text: "Sing a dramatic sad breakup song like you're in a movie scene.", inputType: "video", hint: "record → dramatic singing → submit" }
   },
   {
     q: "What character or habit of mine do you dislike the most?",
     truth: { prompt: "Explain honestly why that bothers you.", inputType: "text" },
-    dare: { text: "Roast me non-stop like a stand-up comedian for 30 seconds.", inputType: "video", hint: "record → roast → submit" }
+    dare: { text: "Roast me by turning your roast into a funny rap.", inputType: "video", hint: "record → rap roast → submit" }
   },
   {
     q: "Why did you choose me as your friend in the first place?",
     truth: { prompt: "What made you trust or like me?", inputType: "text" },
-    dare: { text: "Send 'I have something important to confess tomorrow' to 3 contacts.", inputType: "image", hint: "send → screenshot → submit" }
+    dare: { text: "Sing a friendship song dedicated to me for 20 seconds.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "Why should you keep me as a friend?",
     truth: { prompt: "Give your honest reasons.", inputType: "text" },
-    dare: { text: "Act like a dramatic movie villain for 1 minute.", inputType: "video", hint: "record → villain acting → submit" }
+    dare: { text: "Sing your answer like an opera singer.", inputType: "video", hint: "record → opera style → submit" }
   },
   {
-    q: "If you rate me as a friend out of 10, what would it be and why? Also tell one thing you like about me and one thing I should improve.",
+    q: "If you rate me as a friend out of 10, what would it be and why?",
     truth: { prompt: "Be honest.", inputType: "text" },
-    dare: { text: "Dance seriously for 30 seconds with no music.", inputType: "video", hint: "record → dance → submit" }
+    dare: { text: "Sing the rating like a judge on a singing reality show.", inputType: "voice", hint: "record → judge singing → submit" }
   },
   {
     q: "What was your first impression of me when we met?",
     truth: { prompt: "How did that impression change later?", inputType: "text" },
-    dare: { text: "Let the group choose a caption and post it as your status.", inputType: "image", hint: "post → screenshot → submit" }
+    dare: { text: "Turn your first impression into a short funny song.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "What is one funny or strange memory you have with me?",
     truth: { prompt: "Explain what happened.", inputType: "text" },
-    dare: { text: "Send 'I just remembered something embarrassing about you 😂' to the last person you chatted with.", inputType: "image", hint: "send → screenshot → submit" }
+    dare: { text: "Sing the story like a storytelling ballad.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "What is something about me that surprised you after we became friends?",
     truth: { prompt: "Was it a good surprise or bad one?", inputType: "text" },
-    dare: { text: "Act like a cat for 1 full minute with sound effects.", inputType: "video", hint: "record → meow → submit" }
+    dare: { text: "Imitate a famous singer and perform 15 seconds of a song.", inputType: "voice", hint: "record → imitate → submit" }
   },
   {
     q: "What childish habit do you still have even now?",
     truth: { prompt: "When do you usually do it?", inputType: "text" },
-    dare: { text: "Try to make everyone laugh without speaking for 1 minute.", inputType: "video", hint: "record → silent comedy → submit" }
+    dare: { text: "Sing a nursery rhyme like a professional concert performance.", inputType: "video", hint: "record → sing → submit" }
   },
   {
     q: "If you could change one thing about your personality, what would it be?",
     truth: { prompt: "Why would you change that?", inputType: "text" },
-    dare: { text: "Say the alphabet backwards while hopping on one foot.", inputType: "video", hint: "record → perform → submit" }
+    dare: { text: "Freestyle a song about your personality.", inputType: "voice", hint: "record → freestyle → submit" }
   },
   {
     q: "What is the funniest thing someone has ever said to you?",
     truth: { prompt: "Explain the situation.", inputType: "text" },
-    dare: { text: "Balance a book on your head and walk across the room.", inputType: "video", hint: "record → walk → submit" }
+    dare: { text: "Turn that funny moment into a dramatic musical performance.", inputType: "video", hint: "record → musical style → submit" }
   },
   {
     q: "What is the weirdest habit you have that most people don't know?",
     truth: { prompt: "Explain when you usually do it.", inputType: "text" },
-    dare: { text: "Let someone draw anything they want on your hand.", inputType: "image", hint: "draw → photo → submit" }
+    dare: { text: "Sing while pretending you're performing in front of 50,000 people.", inputType: "video", hint: "record → stage performance → submit" }
   },
   {
     q: "Who do you trust the most in your life right now?",
     truth: { prompt: "Why do you trust that person the most?", inputType: "text" },
-    dare: { text: "Talk like a robot for the next 3 minutes.", inputType: "video", hint: "record → robot voice → submit" }
+    dare: { text: "Sing a thank-you song for that person.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "What is something about you that people often misunderstand?",
     truth: { prompt: "Why do you think they misunderstand it?", inputType: "text" },
-    dare: { text: "Do 20 jumping jacks while shouting your name dramatically.", inputType: "video", hint: "record → jumping jacks → submit" }
+    dare: { text: "Explain it by singing like a sad movie song.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
-    q: "What is the biggest misunderstanding someone has had about you, and what is the real story behind it?",
+    q: "What is the biggest misunderstanding someone has had about you?",
     truth: { prompt: "Explain what actually happened.", inputType: "text" },
-    dare: { text: "Pretend to be a news reporter and interview someone dramatically.", inputType: "video", hint: "record → interview → submit" }
+    dare: { text: "Sing the story like a dramatic movie soundtrack.", inputType: "video", hint: "record → dramatic singing → submit" }
   },
   {
     q: "What is one decision in your life that changed you the most?",
     truth: { prompt: "Explain what happened and how it affected you.", inputType: "text" },
-    dare: { text: "Show the last 3 photos in your gallery.", inputType: "image", hint: "screenshot → submit" }
+    dare: { text: "Sing a motivational song like you're performing at a concert.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "What is a dream or goal you really want to achieve in life?",
     truth: { prompt: "What are you doing to reach it?", inputType: "text" },
-    dare: { text: "Whistle or hum a song dramatically for 30 seconds.", inputType: "voice", hint: "mic → submit" }
+    dare: { text: "Sing a victory song as if you already achieved your dream.", inputType: "voice", hint: "record → sing → submit" }
   },
   {
     q: "What is something people think about you that is completely wrong?",
     truth: { prompt: "Explain the truth behind it.", inputType: "text" },
-    dare: { text: "Send a random meme or GIF to the last person you chatted with.", inputType: "image", hint: "send → screenshot → submit" }
+    dare: { text: "Turn the truth into a short rap song.", inputType: "voice", hint: "record → rap → submit" }
   }
 ];
 
@@ -333,9 +333,9 @@ function pickTruthLogic() {
   document.getElementById('char-count').textContent = '0';
   showPhase('phase-truth');
   setTimeout(() => document.getElementById('truth-input').focus(), 300);
-  if(typeof addFP === 'function') addFP(3);
+  if (typeof addFP === 'function') addFP(3);
   showToast('🌊 Truth it is. The room is listening.');
-  
+
   // Clear animation classes
   document.querySelectorAll('.burst-truth').forEach(el => el.classList.remove('burst-truth'));
 }
@@ -358,9 +358,9 @@ function pickDareLogic() {
   document.getElementById('dare-box-text').textContent = dare.text;
   buildDareInput(dare);
   showPhase('phase-dare');
-  if(typeof addFP === 'function') addFP(3);
+  if (typeof addFP === 'function') addFP(3);
   showToast('💣 Dare selected. No backing out.');
-  
+
   // Clear animation classes
   document.querySelectorAll('.burst-dare').forEach(el => el.classList.remove('burst-dare'));
 }
@@ -506,7 +506,7 @@ async function toggleRecording() {
       if (wave) wave.classList.add('playing');
       showToast('🎙️ Recording started...');
     } catch (err) {
-      showToast('Mic access denied! Allow microphone permission.');
+      showToast('Mic access denied or not found! Allow microphone permission.');
     }
   } else {
     if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
@@ -555,7 +555,13 @@ function uploadToDrive(blob, filename, mimeType) {
 /* ═══════════ VIDEO CAPTURE ════════════════════════ */
 async function startVideoCapture() {
   try {
-    cameraStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    } catch (audioErr) {
+      console.warn("Audio failed, falling back to video only:", audioErr);
+      cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      showToast('Mic access missing/denied! Recording video only.');
+    }
     const ui = document.getElementById('cam-video-ui');
     const opts = document.getElementById('media-options');
     if (ui) { ui.style.display = 'flex'; }
@@ -840,7 +846,13 @@ async function startFeedbackVideo() {
   document.getElementById('fb-video-ui').style.display = 'flex';
   document.getElementById('fb-voice-ui').style.display = 'none';
   try {
-    fbVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    try {
+      fbVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    } catch (audioErr) {
+      console.warn("Audio failed, falling back to video only:", audioErr);
+      fbVideoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      showToast('Mic access missing/denied! Recording video only.');
+    }
     const preview = document.getElementById('fb-cam-preview');
     if (preview) preview.srcObject = fbVideoStream;
   } catch (e) { showToast('Camera access denied! Allow permission.'); }
@@ -869,7 +881,7 @@ async function toggleFeedbackVoiceRec() {
       document.getElementById('fb-voice-status').textContent = 'Recording... tap to stop';
       const wave = document.getElementById('fb-voice-wave');
       if (wave) wave.classList.add('playing');
-    } catch (err) { showToast('Mic access denied! Allow microphone permission.'); }
+    } catch (err) { showToast('Mic access denied or not found! Allow permission.'); }
   } else {
     if (fbAudioRecorder && fbAudioRecorder.state !== 'inactive') fbAudioRecorder.stop();
     isFbAudioRecording = false;
@@ -1113,7 +1125,7 @@ function playNextTrack() {
     const btn = document.getElementById('music-toggle');
     if (btn) { btn.classList.add('playing'); btn.innerHTML = '🔊'; }
   }).catch(err => console.log(err));
-  
+
   // Pick next random track different from current
   let nextIdx = Math.floor(Math.random() * MUSIC_TRACKS.length);
   while (nextIdx === currentMusicIdx && MUSIC_TRACKS.length > 1) {
@@ -1145,7 +1157,7 @@ function toggleMusic() {
       }).catch(err => {
         showToast('Click anywhere first to play music!');
       });
-}
+    }
   }
 }
 
@@ -1153,7 +1165,7 @@ function toggleMusic() {
 function checkFullscreen() {
   const btn = document.getElementById('music-toggle');
   if (!btn) return;
-  
+
   if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
     btn.innerHTML = '⛶'; // Fullscreen icon
     btn.classList.remove('playing');
@@ -1196,7 +1208,7 @@ document.addEventListener('click', (e) => {
 }, { once: true });
 
 // Listen for orientation changes to enforce fullscreen on landscape
-window.addEventListener("orientationchange", function() {
+window.addEventListener("orientationchange", function () {
   if (window.orientation === 90 || window.orientation === -90) {
     requestFullscreen();
   }
