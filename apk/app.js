@@ -477,11 +477,37 @@ function markActionDone() {
 }
 window.markActionDone = markActionDone;
 
+/* ─── Mic helper: robust getUserMedia for audio ─── */
+async function requestMicStream() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    throw new Error('Your browser does not support microphone access. Try Chrome or Firefox.');
+  }
+  try {
+    return await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (err) {
+    // Try again with minimal constraints in case the device is picky
+    if (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError') {
+      return await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false } });
+    }
+    // Map common errors to friendly messages
+    if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+      throw new Error('Microphone permission was denied. Please allow mic access in your browser settings and try again.');
+    }
+    if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+      throw new Error('No microphone found on this device. Please connect a mic and try again.');
+    }
+    if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+      throw new Error('Microphone is in use by another app. Close other apps using the mic and try again.');
+    }
+    throw new Error('Mic error: ' + (err.message || err.name));
+  }
+}
+
 /* Voice recording */
 async function toggleRecording() {
   if (!isRecording) {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = await requestMicStream();
       mediaRecorder = new MediaRecorder(stream);
       audioChunks = [];
       mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
@@ -506,7 +532,10 @@ async function toggleRecording() {
       if (wave) wave.classList.add('playing');
       showToast('🎙️ Recording started...');
     } catch (err) {
-      showToast('Mic access denied or not found! Allow microphone permission.');
+      console.error('Mic error:', err);
+      const statusEl = document.getElementById('voice-status');
+      if (statusEl) statusEl.textContent = '⚠️ Mic blocked — check browser settings';
+      showToast('🎙️ ' + (err.message || 'Mic access denied! Allow microphone permission in your browser.'));
     }
   } else {
     if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
@@ -861,7 +890,7 @@ async function startFeedbackVideo() {
 async function toggleFeedbackVoiceRec() {
   if (!isFbAudioRecording) {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = await requestMicStream();
       fbAudioRecorder = new MediaRecorder(stream);
       fbAudioChunks = [];
       fbAudioRecorder.ondataavailable = e => { if (e.data.size > 0) fbAudioChunks.push(e.data); };
@@ -881,7 +910,12 @@ async function toggleFeedbackVoiceRec() {
       document.getElementById('fb-voice-status').textContent = 'Recording... tap to stop';
       const wave = document.getElementById('fb-voice-wave');
       if (wave) wave.classList.add('playing');
-    } catch (err) { showToast('Mic access denied or not found! Allow permission.'); }
+    } catch (err) {
+      console.error('Feedback mic error:', err);
+      const statusEl = document.getElementById('fb-voice-status');
+      if (statusEl) statusEl.textContent = '⚠️ Mic blocked — check browser settings';
+      showToast('🎙️ ' + (err.message || 'Mic access denied! Allow microphone permission in your browser.'));
+    }
   } else {
     if (fbAudioRecorder && fbAudioRecorder.state !== 'inactive') fbAudioRecorder.stop();
     isFbAudioRecording = false;
