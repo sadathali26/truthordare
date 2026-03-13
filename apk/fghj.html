@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Drive Dashboard</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn-upload {
+            background-color: #0F9D58;
+            color: white;
+        }
+
+        .btn-record {
+            background-color: #d93025;
+            color: white;
+            width: 48%;
+        }
+
+        .btn-stop {
+            background-color: #fbbc04;
+            color: black;
+            width: 48%;
+        }
+
+        button:disabled {
+            background-color: #e0e0e0;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h3>📝 Save a Text Note</h3>
+        <textarea id="textInput" placeholder="Type your note here..."></textarea>
+        <button class="btn-upload" id="textBtn" onclick="uploadText()">Save as .txt File</button>
+        <div id="textStatus" class="status"></div>
+    </div>
+
+    <div class="card">
+        <h3>📁 Upload a File</h3>
+        <input type="file" id="fileInput" style="margin-bottom: 10px; width: 100%;">
+        <button class="btn-upload" id="fileBtn" onclick="uploadFile()">Upload File</button>
+        <div id="fileStatus" class="status"></div>
+    </div>
+
+    <div class="card">
+        <h3>🎤 Record Voice Note</h3>
+        <div class="flex-row">
+            <button class="btn-record" id="recordBtn" onclick="startRecording()">Record</button>
+            <button class="btn-stop" id="stopBtn" onclick="stopRecording()" disabled>Stop</button>
+        </div>
+        <button class="btn-upload" id="audioBtn" onclick="uploadAudio()" disabled style="margin-top: 10px;">Upload
+            Audio</button>
+        <div id="audioStatus" class="status"></div>
+    </div>
+
+    <script>
+        // ⚠️ PASTE YOUR WEB APP URL HERE
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw9c3nWK5QsF92xPepp7Z3xpCldKUAfH4v-A3OvADDSE3gS-YMeZyG_tMMVT6JQ2mShgQ/exec';
+
+        // --- CORE UPLOAD FUNCTION ---
+        // This function handles sending the data to Google Apps Script
+        function sendToDrive(base64Data, filename, mimeType, statusElement, buttonElement) {
+            statusElement.innerText = 'Uploading to Drive...';
+            statusElement.style.color = '#333';
+            buttonElement.disabled = true;
+
+            const payload = { fileName: filename, mimeType: mimeType, base64: base64Data };
+
+            fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify(payload) })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === 'success') {
+                        statusElement.innerText = '✅ Saved successfully!';
+                        statusElement.style.color = 'green';
+                    } else {
+                        statusElement.innerText = '❌ Error: ' + result.message;
+                        statusElement.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    statusElement.innerText = '❌ Upload failed.';
+                    statusElement.style.color = 'red';
+                })
+                .finally(() => {
+                    buttonElement.disabled = false;
+                    setTimeout(() => statusElement.innerText = '', 5000); // Clear message after 5 sec
+                });
+        }
+
+        // --- TEXT UPLOAD LOGIC ---
+        function uploadText() {
+            const textContent = document.getElementById('textInput').value;
+            const statusDiv = document.getElementById('textStatus');
+            const btn = document.getElementById('textBtn');
+
+            if (!textContent.trim()) return statusDiv.innerText = 'Please type something.', statusDiv.style.color = 'red';
+
+            // Convert text to a Blob (a file-like object)
+            const textBlob = new Blob([textContent], { type: 'text/plain' });
+            const filename = 'Note_' + new Date().getTime() + '.txt';
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const base64Data = e.target.result.split(',')[1];
+                sendToDrive(base64Data, filename, 'text/plain', statusDiv, btn);
+                document.getElementById('textInput').value = ''; // Clear text box
+            };
+            reader.readAsDataURL(textBlob);
+        }
+
+        // --- FILE UPLOAD LOGIC ---
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const statusDiv = document.getElementById('fileStatus');
+            const btn = document.getElementById('fileBtn');
+
+            if (!file) return statusDiv.innerText = 'Please select a file.', statusDiv.style.color = 'red';
+            if (file.size > 35 * 1024 * 1024) return statusDiv.innerText = 'File too large (Limit ~35MB).', statusDiv.style.color = 'red';
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const base64Data = e.target.result.split(',')[1];
+                sendToDrive(base64Data, file.name, file.type || 'application/octet-stream', statusDiv, btn);
+                fileInput.value = ''; // Clear file selection
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // --- VOICE RECORDING LOGIC ---
+        let mediaRecorder;
+        let audioChunks = [];
+        let audioBlob = null;
+
+        async function startRecording() {
+            const statusDiv = document.getElementById('audioStatus');
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                mediaRecorder.onstop = () => {
+                    audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    document.getElementById('audioBtn').disabled = false;
+                    statusDiv.innerText = 'Recording ready.';
+                };
+
+                mediaRecorder.start();
+                document.getElementById('recordBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+                document.getElementById('audioBtn').disabled = true;
+                statusDiv.innerText = '🔴 Recording...';
+                statusDiv.style.color = 'red';
+            } catch (err) {
+                statusDiv.innerText = '❌ Microphone access denied.';
+                statusDiv.style.color = 'red';
+            }
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            document.getElementById('recordBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            document.getElementById('audioStatus').style.color = '#333';
+        }
+
+        function uploadAudio() {
+            if (!audioBlob) return;
+            const statusDiv = document.getElementById('audioStatus');
+            const btn = document.getElementById('audioBtn');
+            const filename = 'VoiceNote_' + new Date().getTime() + '.webm';
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const base64Data = e.target.result.split(',')[1];
+                sendToDrive(base64Data, filename, 'audio/webm', statusDiv, btn);
+                audioBlob = null; // Clear blob after upload
+                btn.disabled = true;
+            };
+            reader.readAsDataURL(audioBlob);
+        }
+    </script>
+</body>
+
+</html>

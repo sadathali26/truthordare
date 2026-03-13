@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☠️ Kunjol's Interrogation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <canvas id="particle-canvas"></canvas>
+  <canvas id="sparkles-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ── Music Audio & Toggle ──────────────────────── -->
+  <audio id="bg-music"></audio>
+  <button id="music-toggle" class="music-toggle" onclick="toggleMusic()">
+    🎵
+  </button>
+
+  <div id="story-wrap">
+
+    <!-- ── S0 Dark Awakening ────────────────────────── -->
+    <div class="scene" id="scene-0">
+      <div class="scene-center">
+        <div class="s0-dot"></div>
+        <p class="s0-name">Kunjol.</p>
+        <p class="s0-line">You opened it.</p>
+        <button class="ghost-btn" onclick="goScene(1)">
+          <span>...okay</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── S1 Apology Letter ─────────────────────────── -->
+    <div class="scene hidden" id="scene-1">
+      <div class="scene-center">
+        <div class="apology-letter">
+          <div class="apology-from">from: ur beloved sithu🏴‍☠️</div>
+          <div class="apology-body">
+            hey kunjaamaaaa.. 👋
+            <br><br>
+            ok so... sorry for the recent thettal.
+            i didn't mean any of it.sorrrrryyyyyyy......
+            <br><br>
+            you know how i get. things happened. words were said.
+            what is this my darlin,aryaand paranjathaa, thamashakk.
+            I know u cant leave mee..darlin🎀. so come fast !
+            <br><br>
+            anyway — i made you something.
+            open it.
+            <br>
+            <span class="apology-ps">velthonnualla nnalummm...</span>
+          </div>
+          <div class="apology-seal">💌</div>
+        </div>
+        <button class="ghost-btn" onclick="goScene(2)">
+          <span>okay, i'll open it</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── S2 Warning ───────────────────────────────── -->
+    <div class="scene hidden" id="scene-2">
+      <div class="scene-center">
+        <p class="warn-pre">This is not a normal site.</p>
+        <h1 class="warn-title">
+          <span>This is an</span>
+          <span class="red">Interrogation.</span>
+        </h1>
+        <p class="warn-body">Every question here was personally crafted<br>by someone who has seen your crimes
+          firsthand.</p>
+        <p class="warn-sig">— Sadath 😈</p>
+        <button class="ghost-btn" onclick="goScene(3)">
+          <span>I can handle it</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── S3 Get Ready Shorty ─────────────────────── -->
+    <div class="scene hidden" id="scene-3">
+      <div class="scene-center">
+        <div class="hype-badge"></div>
+        <p class="hype-pre">Okay. Deep breath. Or don't.</p>
+        <h2 class="hype-title">Get Ready,<br><span class="hype-pink">Shorty. 🎀</span></h2>
+        <p class="hype-sub">You are about to enter a zone of<br><em>absolutely zero chill.</em></p>
+        <div class="hype-pills">
+          <div class="hype-pill">🚫 No lying</div>
+          <div class="hype-pill">🚫 No skipping</div>
+          <div class="hype-pill">🚫 No surviving</div>
+        </div>
+        <button class="ghost-btn" onclick="goScene(4)">
+          <span>Yeah yeah, let's go</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── S4 Evidence Board ───────────────────────── -->
+    <div class="scene hidden" id="scene-4">
+      <div class="hype-badge"></div>
+      <div class="scene-center">
+        <p class="eyebrow">📂 FILE #K-001 — CLASSIFIED</p>
+        <h2 class="big-title">Your Crimes,<br><span class="red">Documented. 🕵️</span></h2>
+        <p class="muted-text" style="margin-top:-8px">Sadath has been watching. Taking notes. Breathing heavily.</p>
+        <div class="evidence-board">
+          <div class="evidence-item" style="--ev-delay:0.3s">
+            <span class="ev-num">01</span>
+            <span class="ev-text">First of all , njn choikkum nee parayanm 🕵️</span>
+          </div>
+          <div class="evidence-item" style="--ev-delay:0.55s">
+            <span class="ev-num">02</span>
+            <span class="ev-text">Inkanne aryyaaa ,u shortyy buffelloo witch ,be genuine and sathym parayal only
+              💀</span>
+          </div>
+          <div class="evidence-item" style="--ev-delay:0.8s">
+            <span class="ev-num">03</span>
+            <span class="ev-text">Kallam parayarthh, allenki idtha noomb mothm bathilaakmmm!</span>
+          </div>
+          <div class="evidence-item" style="--ev-delay:1.05s">
+            <span class="ev-num">04</span>
+            <span class="ev-text">And verthe adch vitt povarth , no spam...🤨</span>
+          </div>
+        </div>
+        <button class="ghost-btn" id="crew-cta" onclick="goScene(5)">
+          <span>ok fine, i'll face it</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── S5 Sadath Trap ────────────────────────────── -->
+    <div class="scene hidden" id="scene-5">
+      <div class="scene-center">
+        <div class="big-emoji anim-pop">🫠</div>
+        <h2 class="sadath-h">Before we begin.</h2>
+        <p class="muted-text">There is one thing the universe needs to know.</p>
+        <div class="sadath-q-box">Is Sadath your absolute favourite person in the entire world?</div>
+        <div class="sadath-choice" id="sadath-wrap">
+          <button class="yes-btn" id="yes-btn" onclick="sadathYes()">YES, obviously 🎉</button>
+          <button class="no-btn" id="no-btn">No 🙅</button>
+        </div>
+        <p class="escape-msg" id="escape-msg"></p>
+      </div>
+    </div>
+
+    <!-- ── S6 Game ───────────────────────────────────── -->
+    <div class="scene hidden" id="scene-6">
+              <div class="hype-badge"></div>
+
+      <div class="game-wrap" id="game-wrap">
+
+        <div class="q-counter" id="q-counter">1 / 12</div>
+
+        <!-- PHASE A: Question + T/D choice -->
+        <div class="phase" id="phase-q">
+          <div class="q-bubble-wrap">
+            <div class="q-sender">☠️ the room asks...</div>
+            <div class="q-bubble" id="q-bubble-text"></div>
+          </div>
+          <div class="td-choice hidden-fade" id="td-choice">
+            <p class="td-hint">pick one. no looking away.</p>
+            <div class="td-pills">
+              <button class="pill pill-truth" onclick="pickTruth(this)">
+                <span class="pill-icon">🌊</span>
+                <span class="pill-label">TRUTH</span>
+                <span class="pill-sub">i'll confess</span>
+              </button>
+              <button class="pill pill-dare" onclick="pickDare(this)">
+                <span class="pill-icon">💣</span>
+                <span class="pill-label">DARE</span>
+                <span class="pill-sub">bring it on</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE B: Truth -->
+        <div class="phase hidden-phase" id="phase-truth">
+          <div class="truth-wrap">
+            <div class="phase-header">
+              <span class="phase-tag truth-tag">🌊 TRUTH</span>
+              <span class="phase-sub" id="truth-sub">go on then.</span>
+            </div>
+            <div class="q-bubble small-q" id="truth-q-echo"></div>
+            <div class="answer-area">
+              <textarea id="truth-input" class="truth-textarea" placeholder="type your confession here... no lying."
+                rows="4" maxlength="500"></textarea>
+              <div class="char-count"><span id="char-count">0</span>/500</div>
+            </div>
+            <div class="phase-actions">
+              <button class="phase-btn dare-alt-btn" onclick="switchToDare()">Actually... DARE 💣</button>
+              <button class="phase-btn submit-btn" onclick="submitTruth()">Submit 💀</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE C: Dare -->
+        <div class="phase hidden-phase" id="phase-dare">
+          <div class="dare-wrap">
+            <div class="phase-header">
+              <span class="phase-tag dare-tag">💣 DARE</span>
+            </div>
+            <div class="dare-box" id="dare-box-text"></div>
+            <div class="dare-input-zone" id="dare-input-zone"></div>
+            <div class="phase-actions">
+              <button class="phase-btn truth-alt-btn" onclick="switchToTruth()">Nope, TRUTH instead 🌊</button>
+              <button class="phase-btn submit-btn" id="dare-submit-btn" onclick="submitDare()">Done ✅</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE D: Response -->
+        <div class="phase hidden-phase" id="phase-response">
+          <div class="response-card" id="response-card">
+            <div class="response-icon" id="response-icon">💀</div>
+            <div class="response-msg" id="response-msg">The room has noted this.</div>
+            <div class="response-answer" id="response-answer"></div>
+            <button class="next-q-btn" onclick="nextCard()">Next question ⚔️</button>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!-- ── S7 Feedback ──────────────────────────────────── -->
+    <div class="scene hidden" id="scene-7">
+      <div class="scene-center">
+        <p class="eyebrow">📂 DEBRIEF</p>
+        <h2 class="big-title">Speak to the<br><span class="red">Creator. ☠️</span></h2>
+        <p class="muted-text" style="margin-top:-8px">Before you leave, the developer demands your thoughts.<br>Write,
+          speak, or record.</p>
+
+        <div class="dare-input-zone" id="feedback-zone" style="max-width:460px; width:100%; margin-top:16px;">
+          <textarea id="feedback-text" class="truth-textarea" placeholder="Type your honest feedback here..." rows="3"
+            maxlength="800"></textarea>
+
+          <div class="media-option-row" style="margin-top:10px;">
+            <button class="media-option-btn" onclick="toggleFeedbackVoice()">🎙️ Record Voice</button>
+            <button class="media-option-btn" onclick="startFeedbackVideo()">🎥 Record Video</button>
+          </div>
+
+          <!-- Voice UI -->
+          <div id="fb-voice-ui"
+            style="display:none; flex-direction:column; align-items:center; gap:10px; margin-top:10px;">
+            <button class="voice-mic-btn" id="fb-mic-btn" onclick="toggleFeedbackVoiceRec()">🎙️</button>
+            <div class="voice-waveform" id="fb-voice-wave">
+              <div class="wave-bar" style="height:8px"></div>
+              <div class="wave-bar" style="height:8px"></div>
+              <div class="wave-bar" style="height:8px"></div>
+              <div class="wave-bar" style="height:8px"></div>
+              <div class="wave-bar" style="height:8px"></div>
+            </div>
+            <p class="voice-status" id="fb-voice-status">Tap mic to record input...</p>
+            <audio id="fb-audio-playback" controls
+              style="display:none;width:100%;margin-top:6px;border-radius:10px"></audio>
+          </div>
+
+          <!-- Video UI -->
+          <div id="fb-video-ui"
+            style="display:none; flex-direction:column; align-items:center; gap:10px; margin-top:10px;">
+            <video id="fb-cam-preview" autoplay muted playsinline class="media-preview-video"></video>
+            <button class="voice-mic-btn" id="fb-video-btn" onclick="toggleFeedbackVideoRec()">⏺️</button>
+            <p class="voice-status" id="fb-video-status">Tap ⏺️ to start recording</p>
+            <div id="fb-video-wrap" style="display:none; width:100%">
+              <video id="fb-video-playback" controls class="media-preview-video"></video>
+            </div>
+          </div>
+
+          <p class="upload-status" id="fb-upload-status"></p>
+        </div>
+
+        <button class="ghost-btn" id="fb-submit-btn" onclick="submitFeedback()" style="margin-top:20px;">
+          <span>Submit Feedback</span><span class="arr">→</span>
+        </button>
+        <button class="ghost-btn ghost-dim" onclick="goScene(8)" style="margin-top:10px;">
+          <span>Skip</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── S8 End ─────────────────────────────────────── -->
+    <div class="scene hidden" id="scene-8">
+      <div class="scene-center">
+        <div class="big-emoji anim-pop" style="font-size:5rem; animation-delay:.2s">🏆</div>
+        <h2 class="big-title" style="animation-delay:.6s">You survived,<br><span class="red">Kunjol.</span></h2>
+        <p class="muted-text" style="animation-delay:1s">The room has collected everything it needs.<br>Sadath is proud.
+          Mostly.</p>
+        <div class="end-level" id="end-level">Certified Bestie ✨</div>
+        <div class="end-btns">
+          <button class="ghost-btn" onclick="restartGame()"><span>Play Again ⚔️</span></button>
+          <button class="ghost-btn ghost-dim" onclick="goScene(0)"><span>↩ Start Over</span></button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /story-wrap -->
+
+  <div id="float-layer"></div>
+  <div id="toast-box"></div>
+
+  <!-- ── Portrait Rotate Overlay ─────────────────────── -->
+  <div id="rotate-overlay">
+    <div class="rotate-inner">
+      <div class="rotate-phone-icon" id="rotate-anim">📱</div>
+      <p class="rotate-title">Rotate your phone</p>
+      <p class="rotate-sub">This experience was built for landscape mode.</p>
+      <div class="rotate-bars">
+        <div class="rbar"></div>
+        <div class="rbar"></div>
+        <div class="rbar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
