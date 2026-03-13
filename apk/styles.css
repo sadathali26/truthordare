@@ -101,9 +101,8 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); col
   gap:24px; max-width:660px; width:100%; z-index:2;
   /* This is the centering trick: pushes content to middle when page is tall,
      and gracefully scrolls when content overflows */
-  min-height:100%;
-  justify-content:center;
-  padding:25px;
+  margin: auto; /* Uses auto margins to center within flex container (.scene) */
+  padding:25px 0;
 }
 .scene-lower { margin-top:auto; padding-bottom:52px; }
 
@@ -341,8 +340,8 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); col
 .game-wrap {
   position:relative; width:100%; max-width:580px;
   display:flex; flex-direction:column;
-  align-items:center; gap:20px; padding:20px; z-index:2;
-  height:100%; justify-content:center;
+  align-items:center; gap:20px; padding:20px 0; z-index:2;
+  margin: auto;
 }
 
 /* Progress rail */
@@ -776,8 +775,9 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); col
 
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width:580px) {
-  .scene-center { justify-content:center; padding: 20px; margin-top: 10px; }
-  .game-wrap { padding:20px; justify-content:center; } /* equal padding */
+  .scene { padding: 30px 20px 20px; } /* 30px margin on top of screen */
+  .scene-center { justify-content:center; margin: auto; padding: 0; min-height: auto; }
+  .game-wrap { justify-content:center; margin: auto; padding: 0; min-height: auto; }
   .q-counter { font-size: 0.75rem !important; padding: 0; }
   .q-bubble { font-size:1.1rem; padding:18px 18px; }
   .td-pills { gap:8px; }
@@ -1012,8 +1012,8 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); col
 
 /* Extra compact for very small landscape (iPhone SE = 375h) */
 @media (max-height: 400px) and (orientation: landscape) {
-  .scene { padding: 8px 16px 56px; }
-  .scene-center { gap: 7px; padding-top: 4px; }
+  .scene { padding: 8px 16px 16px; }
+  .scene-center { gap: 7px; }
   .s0-name { font-size: clamp(1.8rem, 7vw, 3rem); }
   .apology-letter { max-height: 200px; }
   .apology-body { font-size: 0.88rem; }
